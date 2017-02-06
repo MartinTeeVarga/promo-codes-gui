@@ -1,4 +1,4 @@
-# promo-codes-gui
+# promo-codes-gui  [![Build Status](https://travis-ci.org/sm4/promo-codes-gui.svg?branch=master)](https://travis-ci.org/sm4/promo-codes-gui)
 The GUI for promo-codes
 
 ## Build Setup
