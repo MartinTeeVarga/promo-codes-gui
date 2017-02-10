@@ -6,7 +6,6 @@
   "private": true,
   "scripts": {
     "json-server": "json-server --watch db.json",
-    // dev only works on windows now
     "predev": "start npm run json-server",
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
