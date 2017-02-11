@@ -1,6 +1,32 @@
 #header {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 #footer {
+  text-align: center;
+}
+
+.navbar-link {
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.navbar-list {
+  list-style: none;
+}
+
+.navbar-item {
+  position: relative;
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.active {
+  border-bottom: solid 1px #1EAEDB;
+}
+
+.centered {
+  align-items: center;
   text-align: center;
 }

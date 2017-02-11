@@ -1,16 +1,28 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-Vue.use(Router)
+Vue.use(Router);
 
-import Hello from 'components/Hello'
+import About from 'components/About';
+import Promocodes from 'components/Promocodes';
 
 export default new Router({
+  linkActiveClass: 'active',
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      redirect: '/promocodes'
+    },
+    {
+      path: '/promocodes',
+      name: 'promocodes',
+      component: Promocodes
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
     }
+
   ]
-})
+});
