@@ -15,7 +15,7 @@
   export default {
     name: 'promocodes',
     data () {
-      axios.get('http://localhost:8080/v1/games/test/codes/list')
+      axios.get('http://localhost:8080/api/v1/games/test/codes/list')
         .then(function (response) {
           console.log(response.data); // ex.: { user: 'Your User'}
           console.log(response.status); // ex.: 200
@@ -34,7 +34,7 @@
     },
     methods: {
       foo: function () {
-        axios.get('http://localhost:8080/v1/games/test/codes/list')
+        axios.get('http://localhost:8080/api/v1/games/test/codes/list')
           .then(function (response) {
             console.log(response.data);
             console.log(response.status);
