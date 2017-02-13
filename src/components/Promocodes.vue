@@ -3,7 +3,7 @@
     <grid-component
       :data="gridData"
       :columns="gridColumns"
-      :filter-key="searchQuery">>
+      :filter-key="searchQuery">
     </grid-component>
   </div>
 </template>
@@ -15,31 +15,26 @@
   export default {
     name: 'promocodes',
     data () {
-      console.log('ENV: ' + process.env.NODE_ENV);
-      axios.get('http://localhost:8080/api/v1/games/test/codes/list')
-        .then(function (response) {
-          console.log(response.data); // ex.: { user: 'Your User'}
-          console.log(response.status); // ex.: 200
-        });
-
+      this.fetch();
       return {
         searchQuery: '',
-        gridColumns: ['name', 'power'],
-        gridData: [
-          {name: 'Chuck Norris', power: Infinity},
-          {name: 'Bruce Lee', power: 9000},
-          {name: 'Jackie Chan', power: 7000},
-          {name: 'Jet Li', power: 8000}
-        ]
+        gridColumns: [
+          {key: 'codeId', name: 'Code', filter: 'none'},
+          {key: 'from', name: 'From', filter: 'localDate'},
+          {key: 'to', name: 'To', filter: 'localDate'},
+          {key: 'pub', name: 'Public', filter: 'none'}],
+        gridData: []
       };
     },
     methods: {
-      foo: function () {
-        console.log('ENV: ' + process.env.NODE_ENV);
+      fetch: function () {
+        var self = this;
+        console.log('URL: ' + 'gg');
         axios.get('http://localhost:8080/api/v1/games/test/codes/list')
           .then(function (response) {
-            console.log(response.data);
-            console.log(response.status);
+            self.gridData = response.data._embedded.codeList;
+//            console.log(response.data); // ex.: { user: 'Your User'}
+//            console.log(response.status); // ex.: 200
           });
       }
     },
@@ -47,6 +42,41 @@
       GridComponent
     }
   };
+  //  var json = {
+  //    "_embedded": {
+  //      "codeList": [{
+  //        "from": "2017-01-28T06:18:34+00:00",
+  //        "to": "2037-01-28T06:18:34+00:00",
+  //        "pub": true,
+  //        "payload": "Hello World",
+  //        "codeId": "PUB1",
+  //        "gameId": "test",
+  //        "_links": {
+  //          "self": {
+  //            "href": "/api/v1/games/test/codes/PUB1"
+  //          }
+  //        }
+  //      }, {
+  //        "from": "2017-02-10T06:10:16+00:00",
+  //        "to": "2019-02-10T06:10:16+00:00",
+  //        "pub": true,
+  //        "payload": "Something",
+  //        "codeId": "PUB2",
+  //        "gameId": "test",
+  //        "_links": {
+  //          "self": {
+  //            "href": "/api/v1/games/test/codes/PUB2"
+  //          }
+  //        }
+  //      }]
+  //    },
+  //    "page": {
+  //      "size": 2,
+  //      "totalElements": 2,
+  //      "totalPages": 1,
+  //      "number": 0
+  //    }
+  //  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
