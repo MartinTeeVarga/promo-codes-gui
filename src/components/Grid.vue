@@ -3,7 +3,7 @@
       <div class="row">
         <div class="search">
           <span class="fa fa-search"></span>
-          <input class="u-full-width" type="text" placeholder="Search..." id="filterBox" v-on:input="debounceInput" v-model="searchInput">
+          <input class="u-full-width" type="text" placeholder="Search..." id="filterBox" v-model="searchInput">
         </div>
       </div>
     <table class="u-full-width">
@@ -86,6 +86,11 @@
 //  filters: {
 //
 //  },
+    watch: {
+      searchInput: function () {
+        this.debounceInput();
+      }
+    },
     methods: {
       sortBy: function (key) {
         this.sortKey = key;
