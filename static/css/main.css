@@ -30,3 +30,11 @@
   align-items: center;
   text-align: center;
 }
+
+th {
+  cursor: pointer;
+}
+
+tfoot {
+
+}

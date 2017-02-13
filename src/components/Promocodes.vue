@@ -3,7 +3,7 @@
     <grid-component
       :data="gridData"
       :columns="gridColumns"
-      :filter-key="searchQuery">
+      :initialSortKey="sortKey">
     </grid-component>
   </div>
 </template>
@@ -17,22 +17,22 @@
     data () {
       this.fetch();
       return {
-        searchQuery: '',
         gridColumns: [
           {key: 'codeId', name: 'Code', filter: 'none'},
           {key: 'from', name: 'From', filter: 'localDate'},
           {key: 'to', name: 'To', filter: 'localDate'},
           {key: 'pub', name: 'Public', filter: 'none'}],
-        gridData: []
+        gridData: [],
+        sortKey: 'codeId'
       };
     },
     methods: {
       fetch: function () {
         var self = this;
         console.log('URL: ' + 'gg');
-        axios.get('http://localhost:8080/api/v1/games/test/codes/list')
+        axios.get('http://localhost:8080/api/v1/games/GAME0/codes/list')
           .then(function (response) {
-            self.gridData = response.data._embedded.codeList;
+            self.gridData = response.data;
 //            console.log(response.data); // ex.: { user: 'Your User'}
 //            console.log(response.status); // ex.: 200
           });
