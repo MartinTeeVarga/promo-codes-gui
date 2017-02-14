@@ -1,4 +1,4 @@
-# promo-codes-gui  [![Build Status](https://travis-ci.org/sm4/promo-codes-gui.svg?branch=master)](https://travis-ci.org/sm4/promo-codes-gui)
+# promo-codes-gui  [![Build Status](https://travis-ci.org/sm4/promo-codes-gui.svg?branch=master)](https://travis-ci.org/sm4/promo-codes-gui) [![Code Coverage](https://img.shields.io/codecov/c/github/sm4/promo-codes-gui/master.svg)](https://codecov.io/github/sm4/promo-codes-gui?branch=master)
 The GUI for promo-codes
 
 ## Build Setup
