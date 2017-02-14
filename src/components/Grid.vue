@@ -1,20 +1,20 @@
 <template>
   <div>
-      <div class="row">
-        <div class="search">
-          <span class="fa fa-search"></span>
-          <input class="u-full-width" type="text" placeholder="Search..." id="filterBox" v-on:input="updateFilterKey">
-        </div>
+    <div class="row">
+      <div class="search">
+        <span class="fa fa-search"></span>
+        <input class="u-full-width" type="text" placeholder="Search..." id="filterBox" v-on:input="updateFilterKey">
       </div>
+    </div>
     <table class="u-full-width">
       <thead>
-        <th v-for="columnDefinition in columns"
-            @click="sortBy(columnDefinition.key)"
-            :class="{ active: sortKey == columnDefinition.key }">
-          {{ columnDefinition.name }}
+      <th v-for="columnDefinition in columns"
+          @click="sortBy(columnDefinition.key)"
+          :class="{ active: sortKey == columnDefinition.key }">
+        {{ columnDefinition.name }}
         <span v-if="sortKey == columnDefinition.key"
               :class="sortOrders[columnDefinition.key] > 0 ? 'fa fa-caret-up' : 'fa fa-caret-down'"></span>
-        </th>
+      </th>
       </tr>
       </thead>
       <tbody>
@@ -24,11 +24,11 @@
         </td>
       </tr>
       </tbody>
-      <tfoot>
+      <tfoot v-if="data.length > limit">
       <tr>
         <th :colspan="columns.length" class="centered">
-          <button v-if="data.length > limit" v-on:click="limit += 10">Show more</button>
-          <button v-if="data.length > limit" v-on:click="limit = data.length">Show all</button>
+          <button v-on:click="limit += 10">Show more</button>
+          <button v-on:click="limit = data.length">Show all</button>
         </th>
       </tr>
       </tfoot>
@@ -125,7 +125,6 @@
     top: 10px;
     left: 7px;
   }
-
 
   td, th {
     cursor: pointer;

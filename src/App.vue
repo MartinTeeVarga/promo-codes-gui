@@ -8,10 +8,10 @@
       <div class="row">
         <ul class="navbar-list centered">
           <li class="navbar-item">
-            <router-link class="navbar-link" to="promocodes">Promo Codes</router-link>
+            <router-link class="navbar-link" to="/promocodes">Promo Codes</router-link>
           </li>
           <li class="navbar-item">
-            <router-link class="navbar-link" to="about">About</router-link>
+            <router-link class="navbar-link" to="/about">About</router-link>
           </li>
         </ul>
       </div>
