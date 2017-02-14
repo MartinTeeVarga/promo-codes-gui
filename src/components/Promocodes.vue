@@ -30,11 +30,10 @@
       fetch: function () {
         var self = this;
         console.log('URL: ' + 'gg');
-        axios.get('http://localhost:8080/api/v1/games/GAME0/codes/list')
+        axios.get(process.env.API_URL + '/games/GAME0/codes/list')
           .then(function (response) {
+            // todo deal with errors
             self.gridData = response.data;
-//            console.log(response.data); // ex.: { user: 'Your User'}
-//            console.log(response.status); // ex.: 200
           });
       }
     },

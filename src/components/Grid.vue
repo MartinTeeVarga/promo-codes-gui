@@ -3,12 +3,11 @@
       <div class="row">
         <div class="search">
           <span class="fa fa-search"></span>
-          <input class="u-full-width" type="text" placeholder="Search..." id="filterBox" v-model="searchInput">
+          <input class="u-full-width" type="text" placeholder="Search..." id="filterBox" v-on:input="updateFilterKey">
         </div>
       </div>
     <table class="u-full-width">
       <thead>
-      <tr>
         <th v-for="columnDefinition in columns"
             @click="sortBy(columnDefinition.key)"
             :class="{ active: sortKey == columnDefinition.key }">
@@ -19,7 +18,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="entry in filteredData">
+      <tr v-for="(entry, index) in filteredData" v-on:click="rowClick(index)">
         <td v-for="columnDefinition in columns">
           {{ dynamicFilter(entry[columnDefinition.key], columnDefinition.filter) }}
         </td>
@@ -52,7 +51,6 @@
         sortOrders[columnDefinition.key] = 1;
       });
       return {
-        searchInput: '',
         filterKey: '',
         debouncedFilterKey: '',
         limit: 10,
@@ -103,9 +101,12 @@
           return str;
         }
       },
-      debounceInput: _.debounce(function () {
-        this.filterKey = this.searchInput;
-      }, 500)
+      updateFilterKey: _.debounce(function (event) {
+        this.filterKey = event.target.value;
+      }, 500),
+      rowClick: function (entry) {
+        console.log('Entry ' + JSON.stringify(this.filteredData[entry]));
+      }
     }
   };
 </script>
@@ -123,5 +124,10 @@
     position: absolute;
     top: 10px;
     left: 7px;
+  }
+
+
+  td, th {
+    cursor: pointer;
   }
 </style>
