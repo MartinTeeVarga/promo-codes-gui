@@ -15,14 +15,13 @@
 </template>
 
 <script>
-  import GridComponent from 'components/Grid';
-  import axios from 'axios';
+  import GridComponent from 'components/Grid'
+  import axios from 'axios'
 
   export default {
     name: 'promocodes',
     data () {
-      console.log('ID: ' + this.$route.params.id);
-      this.fetch();
+      this.fetch()
       return {
         gridColumns: [
           {key: 'codeId', name: 'Code', filter: 'none'},
@@ -31,22 +30,22 @@
           {key: 'pub', name: 'Public', filter: 'none'}],
         gridData: [],
         sortKey: 'codeId'
-      };
+      }
     },
     methods: {
       fetch: function () {
-        var self = this;
+        var self = this
         axios.get(process.env.API_URL + '/games/GAME0/codes/list')
           .then(function (response) {
             // todo deal with errors
-            self.gridData = response.data;
-          });
+            self.gridData = response.data
+          })
       }
     },
     components: {
       GridComponent
     }
-  };
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

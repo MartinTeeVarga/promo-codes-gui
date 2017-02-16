@@ -31,14 +31,14 @@
 </template>
 
 <script>
-  import HeaderComponent from './components/Header.vue';
+  import HeaderComponent from './components/Header.vue'
 
   export default {
     name: 'app',
     components: {
       HeaderComponent
     }
-  };
+  }
 </script>
 
 <style>

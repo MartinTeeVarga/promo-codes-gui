@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from 'vue'
+import Router from 'vue-router'
 
-Vue.use(Router);
+Vue.use(Router)
 
-import About from 'components/About';
-import GameDetails from 'components/GameDetails';
+import About from 'components/About'
+import GameDetails from 'components/GameDetails'
 
 export default new Router({
   linkActiveClass: 'active',
@@ -23,6 +23,5 @@ export default new Router({
       name: 'about',
       component: About
     }
-
   ]
-});
+})

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import _ from 'lodash';
+  import _ from 'lodash'
 
   export default {
     props: {
@@ -46,39 +46,39 @@
       initialSortKey: String
     },
     data: function () {
-      var sortOrders = {};
+      var sortOrders = {}
       this.columns.forEach(function (columnDefinition) {
-        sortOrders[columnDefinition.key] = 1;
-      });
+        sortOrders[columnDefinition.key] = 1
+      })
       return {
         filterKey: '',
         debouncedFilterKey: '',
         limit: 10,
         sortKey: this.initialSortKey,
         sortOrders: sortOrders
-      };
+      }
     },
     computed: {
       filteredData: function () {
-        var sortKey = this.sortKey;
-        var filterKey = this.filterKey && this.filterKey.toLowerCase();
-        var order = this.sortOrders[sortKey] || 1;
-        var data = this.data;
+        var sortKey = this.sortKey
+        var filterKey = this.filterKey && this.filterKey.toLowerCase()
+        var order = this.sortOrders[sortKey] || 1
+        var data = this.data
         if (filterKey) {
           data = data.filter(function (row) {
             return Object.keys(row).some(function (key) {
-              return String(row[key]).toLowerCase().indexOf(filterKey) > -1;
-            });
-          });
+              return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+            })
+          })
         }
         if (sortKey) {
           data = data.slice().sort(function (a, b) {
-            a = a[sortKey];
-            b = b[sortKey];
-            return (a === b ? 0 : a > b ? 1 : -1) * order;
-          });
+            a = a[sortKey]
+            b = b[sortKey]
+            return (a === b ? 0 : a > b ? 1 : -1) * order
+          })
         }
-        return data.slice(0, this.limit);
+        return data.slice(0, this.limit)
       }
     },
 //  filters: {
@@ -86,32 +86,32 @@
 //  },
     watch: {
       searchInput: function () {
-        this.debounceInput();
+        this.debounceInput()
       }
     },
     methods: {
       sortBy: function (key) {
-        this.sortKey = key;
-        this.sortOrders[key] = this.sortOrders[key] * -1;
+        this.sortKey = key
+        this.sortOrders[key] = this.sortOrders[key] * -1
       },
       dynamicFilter: function (str, filterName) {
         if (filterName === 'localDate') {
-          return new Date(str).toLocaleString();
+          return new Date(str).toLocaleString()
         } else {
-          return str;
+          return str
         }
       },
       setFilterKey: function (event) {
-        this.filterKey = event.target.value;
+        this.filterKey = event.target.value
       },
       updateFilterKey: _.debounce(function (event) {
-        this.setFilterKey(event);
+        this.setFilterKey(event)
       }, process.env.DEFAULT_DEBOUNCE),
       rowClick: function (entry) {
-        console.log('Entry ' + JSON.stringify(this.filteredData[entry]));
+        console.log('Entry ' + JSON.stringify(this.filteredData[entry]))
       }
     }
-  };
+  }
 </script>
 
 <style scoped>
