@@ -41,16 +41,19 @@ describe('Grid.vue', () => {
       initialSortKey: 'a'
     });
 
-    var spy = sinon.spy(vm, 'setFilterKey');
-
+    var spy = sinon.spy();
+    vm.setFilterKey = spy;
+    
     var box = vm.$el.querySelector('#filterBox');
     var event = simulant('input');
 
     simulant.fire(box, event);
     simulant.fire(box, event);
     simulant.fire(box, event);
-    expect(spy).to.not.have.been.called.once;
-    clock.tick(600);
-    expect(spy).to.have.been.called.once;
+    spy.should.have.been.called;
+    clock.tick(300);
+    spy.should.not.have.been.called;
+    clock.tick(300);
+    spy.should.have.been.called.once;
   });
 });
