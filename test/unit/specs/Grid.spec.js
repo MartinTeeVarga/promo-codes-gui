@@ -55,7 +55,7 @@ describe('Grid.vue', () => {
     clock.tick(300)
     spy.should.have.been.called.once
   })
-  it.only('should filter results', done => {
+  it('should filter results', done => {
     const vm = create(Grid, {
       data: [{a: 'Hello', b: 'World'}, {a: 'Ehlo', b: 'World'}],
       columns: [
