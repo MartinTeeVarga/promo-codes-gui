@@ -55,4 +55,22 @@ describe('Grid.vue', () => {
     clock.tick(300)
     spy.should.have.been.called.once
   })
+  it.only('should filter results', done => {
+    const vm = create(Grid, {
+      data: [{a: 'Hello', b: 'World'}, {a: 'Ehlo', b: 'World'}],
+      columns: [
+        {key: 'a', name: 'ColumnA', filter: 'none'},
+        {key: 'b', name: 'ColumnB', filter: 'none'}
+      ],
+      initialSortKey: 'a'
+    })
+    vm.setFilterKey({ target: { value: "hello"}})
+    Vue.nextTick(() => {
+      expect(vm.$el.querySelector('table').textContent.trim())
+        .to.contain('Hello')
+      expect(vm.$el.querySelector('table').textContent.trim())
+        .not.to.contain('Ehlo')
+      done()
+    })
+   })
 })
