@@ -1,12 +1,20 @@
 import Vue from 'vue';
 import Grid from 'src/components/Grid';
+import simulant from 'simulant';
 
 function create (Component, propsData) {
   const Ctor = Vue.extend(Component);
-  return new Ctor({ propsData }).$mount();
+  return new Ctor({propsData}).$mount();
 }
 
 describe('Grid.vue', () => {
+  var clock;
+  beforeEach(function () {
+    clock = sinon.useFakeTimers();
+  });
+  afterEach(function () {
+    clock.restore();
+  });
   it('should render column headers', () => {
     const vm = create(Grid, {
       data: [],
@@ -32,7 +40,17 @@ describe('Grid.vue', () => {
       ],
       initialSortKey: 'a'
     });
+
+    var spy = sinon.spy(vm, 'setFilterKey');
+
     var box = vm.$el.querySelector('#filterBox');
-    //TODO figure out how to send keys
+    var event = simulant('input');
+
+    simulant.fire(box, event);
+    simulant.fire(box, event);
+    simulant.fire(box, event);
+    expect(spy).to.not.have.been.called.once;
+    clock.tick(600);
+    expect(spy).to.have.been.called.once;
   });
 });

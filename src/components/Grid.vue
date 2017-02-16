@@ -101,9 +101,12 @@
           return str;
         }
       },
-      updateFilterKey: _.debounce(function (event) {
+      setFilterKey: function (event) {
         this.filterKey = event.target.value;
-      }, 500),
+      },
+      updateFilterKey: _.debounce(function (event) {
+        this.setFilterKey(event);
+      }, process.env.DEFAULT_DEBOUNCE),
       rowClick: function (entry) {
         console.log('Entry ' + JSON.stringify(this.filteredData[entry]));
       }
