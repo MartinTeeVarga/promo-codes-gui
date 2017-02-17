@@ -73,7 +73,7 @@ describe('Grid.vue', () => {
       done()
     })
   })
-  it.only('should sort results', done => {
+  it('should sort results', done => {
     const vm = create(Grid, {
       data: [{a: 'A', b: 'X'}, {a: 'D', b: 'Z'}],
       columns: [
