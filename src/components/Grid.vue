@@ -81,14 +81,6 @@
         return data.slice(0, this.limit)
       }
     },
-//  filters: {
-//
-//  },
-    watch: {
-      searchInput: function () {
-        this.debounceInput()
-      }
-    },
     methods: {
       sortBy: function (key) {
         this.sortKey = key

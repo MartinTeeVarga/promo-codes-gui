@@ -64,7 +64,7 @@ describe('Grid.vue', () => {
       ],
       initialSortKey: 'a'
     })
-    vm.setFilterKey({ target: { value: "hello"}})
+    vm.setFilterKey({target: {value: 'hello'}})
     Vue.nextTick(() => {
       expect(vm.$el.querySelector('table').textContent.trim())
         .to.contain('Hello')
@@ -72,5 +72,24 @@ describe('Grid.vue', () => {
         .not.to.contain('Ehlo')
       done()
     })
-   })
+  })
+  it.only('should sort results', done => {
+    const vm = create(Grid, {
+      data: [{a: 'A', b: 'X'}, {a: 'D', b: 'Z'}],
+      columns: [
+        {key: 'a', name: 'Column1', filter: 'none'},
+        {key: 'b', name: 'Column2', filter: 'none'}
+      ],
+      initialSortKey: 'a'
+    })
+    expect(vm.$el.querySelector('table').textContent.replace(/\r?\n|\r/g, ''))
+      .to.match(/.*A.*X.*D.*Z.*/)
+    var th = vm.$el.querySelector('th:not(.active)')
+    simulant.fire(th, 'click')
+    Vue.nextTick(() => {
+      expect(vm.$el.querySelector('table').textContent.replace(/\r?\n|\r/g, ''))
+        .to.match(/.*D.*Z.*A.*X.*/)
+      done()
+    })
+  })
 })
