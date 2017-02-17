@@ -92,4 +92,18 @@ describe('Grid.vue', () => {
       done()
     })
   })
+  it('should format date columns according to locale', () => {
+    const vm = create(Grid, {
+      data: [{a: 'A', b: '2017-02-17T02:16:07+00:00'}],
+      columns: [
+        {key: 'a', name: 'Column1', filter: 'none'},
+        {key: 'b', name: 'Column2', filter: 'localDate'}
+      ],
+      initialSortKey: 'a'
+    })
+    var localizedDate = new Date('2017-02-17T02:16:07+00:00').toLocaleString()
+    var textContent = vm.$el.querySelector('table').textContent
+    expect(textContent).to.contain(localizedDate)
+    expect(textContent).to.not.contain('2017-02-17T02:16:07+00:00')
+  })
 })
