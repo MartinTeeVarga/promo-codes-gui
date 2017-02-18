@@ -31,6 +31,15 @@
   text-align: center;
 }
 
+input[disabled] {
+  background: #ddd;
+}
+
+input[disabled]:hover {
+  background: #ddd;
+  cursor: not-allowed;
+}
+
 button[disabled] {
   background: #ccc;
   border-color: #ccc;

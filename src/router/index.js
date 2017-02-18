@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-import Editor from 'components/CodeEditor'
+import CodeEditor from 'components/CodeEditor'
 import About from 'components/About'
 import Promocodes from 'components/Promocodes'
 
@@ -29,9 +29,9 @@ export default new Router({
       component: About
     },
     {
-      path: '/editor',
-      name: 'editor',
-      component: Editor
+      path: '/code',
+      name: 'code',
+      component: CodeEditor
     }
   ]
 })

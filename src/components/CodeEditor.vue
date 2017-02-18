@@ -3,18 +3,20 @@
     <div class="u-full-width row">
       <label for="codeId">Promocode ID</label>
       <input class="u-full-width" type="text" placeholder="Any alphanumeric string, case insensitive" id="codeId"
-             name="promocode" v-model="codeId" v-validate="'required|alpha_num'">
+             name="promocode" v-model="codeId" v-validate="'required|alpha_num'" :disabled="edit">
       <span v-show="errors.has('promocode')" class="error">{{ errors.first('promocode') }}</span>
     </div>
     <div class="row">
       <div class="six columns">
         <label for="from">Valid from</label>
-        <input class="u-full-width" type="text" id="from" name="from" placeholder='YYYY-MM-DD' v-model="from" v-validate="'date_format:YYYY-MM-DD|required'">
+        <input class="u-full-width" type="text" id="from" name="from" placeholder='YYYY-MM-DD' v-model="from"
+               v-validate="'date_format:YYYY-MM-DD|required'">
         <span v-show="errors.has('from')" class="error">{{ errors.first('from') }}</span>
       </div>
       <div class="six columns">
         <label for="from">Valid to</label>
-        <input class="u-full-width" type="text" id="to" name="to" placeholder='YYYY-MM-DD' v-model="to" v-validate="'date_format:YYYY-MM-DD|required'">
+        <input class="u-full-width" type="text" id="to" name="to" placeholder='YYYY-MM-DD' v-model="to"
+               v-validate="'date_format:YYYY-MM-DD|required'">
         <span v-show="errors.has('to')" class="error">{{ errors.first('to') }}</span>
       </div>
     </div>
@@ -31,10 +33,18 @@
     </div>
     <hr/>
     <div class="row">
-      <button class="button-primary three columns" @click="submit" :disabled="errors.any()">Save</button>
-      <button class="three columns" @click="generate(8)">Generate new ID</button>
-      <button class="three columns" type="reset">Clear</button>
-      <button class="three columns">Cancel</button>
+      <button class="button-primary four columns" @click="submit" :disabled="errors.any()">
+        <span class="fa fa-floppy-o" aria-hidden="true"></span> Save
+      </button>
+      <button v-show="!edit" class="four columns" @click="generate(8)">
+        <span class="fa fa-random" aria-hidden="true"></span> Generate ID
+      </button>
+      <button v-show="edit" class="button-primary four columns">
+        <span class="fa fa-trash" aria-hidden="true"></span> Delete
+      </button>
+      <button class="four columns">
+        <span class="fa fa-ban" aria-hidden="true"></span> Cancel
+      </button>
     </div>
   </form>
 </template>
@@ -42,6 +52,7 @@
 <script>
 
   import moment from 'moment'
+  import axios from 'axios'
 
   const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -57,18 +68,31 @@
     return str
   }
 
+  function format (str) {
+    return moment(str).format('YYYY-MM-DD')
+  }
+
   export default {
-    name: 'editor',
+    name: 'code-editor',
+    created () {
+      this.maybeFetch()
+    },
     data: function () {
       return {
+        edit: false,
         gameId: '',
-        codeId: 'FXVJD',
+        codeId: '',
         from: moment(new Date()).format('YYYY-MM-DD'),
-        to: moment(new Date()).format('YYYY-MM-DD'),
+        to: moment(new Date()).add(15, 'days').format('YYYY-MM-DD'),
         pub: true,
         payload: 'Hello World'
-
       }
+    },
+    watch: {
+      codeId: function () {
+        this.codeId = this.codeId.toUpperCase()
+      },
+      '$route': 'maybeFetch'
     },
     methods: {
       submit: function () {
@@ -81,6 +105,31 @@
       },
       generate: function (length) {
         this.codeId = randomStr(length)
+      },
+      maybeFetch: function () {
+        var q = this.$route.query
+        var self = this
+        if (q.gameId && q.codeId) {
+          axios.get(process.env.API_URL + '/games/' + q.gameId + '/codes/' + q.codeId)
+            .then(function (response) {
+              console.log(response)
+              if (response.status === 200) {
+                var d = response.data
+                self.codeId = d.codeId
+                self.gameId = d.gameId
+                self.from = format(d.from)
+                self.to = format(d.to)
+                self.pub = d.pub
+                self.payload = d.payload
+                self.edit = true
+              } else {
+                console.log(response)
+              }
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
+        }
       }
     }
   }

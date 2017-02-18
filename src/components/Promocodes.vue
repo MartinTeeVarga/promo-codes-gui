@@ -2,7 +2,6 @@
   <div class="row">
     <div class="row">
       <button class="button-primary"><span class="fa fa-file-o" aria-hidden="true"></span>&nbsp;Add code</button>
-      <button class="button-primary"><span class="fa fa-files-o" aria-hidden="true"></span>&nbsp;Generate</button>
     </div>
     <div class="row">
       <grid-component
@@ -20,8 +19,10 @@
 
   export default {
     name: 'promocodes',
-    data () {
+    created () {
       this.fetch()
+    },
+    data () {
       return {
         gridColumns: [
           {key: 'codeId', name: 'Code', filter: 'none'},
