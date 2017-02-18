@@ -42,7 +42,7 @@
       <button v-show="edit" class="button-primary four columns">
         <span class="fa fa-trash" aria-hidden="true"></span> Delete
       </button>
-      <button class="four columns">
+      <button class="four columns" @click="$router.back()">
         <span class="fa fa-ban" aria-hidden="true"></span> Cancel
       </button>
     </div>
