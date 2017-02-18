@@ -38,6 +38,7 @@
 
 <script>
   import _ from 'lodash'
+  import moment from 'moment'
 
   export default {
     props: {
@@ -88,7 +89,7 @@
       },
       dynamicFilter: function (str, filterName) {
         if (filterName === 'localDate') {
-          return new Date(str).toLocaleString()
+          return moment(new Date(str)).format('YYYY-MM-DD')
         } else {
           return str
         }

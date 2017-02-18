@@ -101,7 +101,7 @@ describe('Grid.vue', () => {
       ],
       initialSortKey: 'a'
     })
-    var localizedDate = new Date('2017-02-17T02:16:07+00:00').toLocaleString()
+    var localizedDate = '2017-02-17'
     var textContent = vm.$el.querySelector('table').textContent
     expect(textContent).to.contain(localizedDate)
     expect(textContent).to.not.contain('2017-02-17T02:16:07+00:00')

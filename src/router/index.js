@@ -3,9 +3,9 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-import Editor from 'components/Editor'
+import Editor from 'components/CodeEditor'
 import About from 'components/About'
-import GameDetails from 'components/GameDetails'
+import Promocodes from 'components/Promocodes'
 
 export default new Router({
   linkActiveClass: 'active',
@@ -19,9 +19,9 @@ export default new Router({
     //   redirect: '/promocodes/gamedetails/GAME0'
     // },
     {
-      path: '/promocodes/gamedetails/:id',
-      name: 'gamedetails',
-      component: GameDetails
+      path: '/promocodes',
+      name: 'promocodes',
+      component: Promocodes
     },
     {
       path: '/about',

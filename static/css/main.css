@@ -31,3 +31,15 @@
   text-align: center;
 }
 
+button[disabled] {
+  background: #ccc;
+  border-color: #ccc;
+  text-shadow: none;
+}
+
+button[disabled]:hover {
+  cursor: not-allowed;
+  background: #ccc;
+  border-color: #ccc;
+  text-shadow: none;
+}
