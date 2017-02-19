@@ -89,7 +89,12 @@
         payload: ''
       }
     },
-
+    watch: {
+      codeId: function () {
+        this.codeId = this.codeId.toUpperCase()
+      },
+      '$route': 'maybeFetch'
+    },
     methods: {
       submit: function () {
         console.log(this.errors)
