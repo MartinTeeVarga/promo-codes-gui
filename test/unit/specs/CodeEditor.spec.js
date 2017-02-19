@@ -52,4 +52,35 @@ describe('CodeEditor.vue', () => {
   // describe('The rest (hahaha)', () => {
   //
   // })
+
+
+  // it('should render filled form on edit', done => {
+  //   var vm = createAndRouteToCodeEditor({gameId: 'GM01', codeId: 'CD01'})
+  //   var responseBody = {
+  //     gameId: 'GM01',
+  //     codeId: 'CD01',
+  //     from: '2017-02-17T02:16:07+00:00',
+  //     to: '2017-02-19T02:16:07+00:00',
+  //     pub: false,
+  //     payload: 'hello'
+  //   }
+  //   moxios.stubRequest(process.env.API_URL + '/games/GM01/codes/CD01', {
+  //     status: 200,
+  //     responseText: JSON.stringify(responseBody)
+  //   })
+  //
+  //   moxios.wait(moxDone => {
+  //     expect(vm.$el.querySelector('#codeId').value).to.equal('CD01')
+  //     expect(vm.$el.querySelector('#from').value).to.equal('2017-02-17')
+  //     expect(vm.$el.querySelector('#to').value).to.equal('2017-02-19')
+  //     expect(vm.$el.querySelector('#pub').checked).to.be.false
+  //     expect(vm.$el.querySelector('#payload').value).to.equal('hello')
+  //     expect(vm.$el.querySelector('#save')).to.exist
+  //     expect(vm.$el.querySelector('#delete')).to.exist
+  //     expect(vm.$el.querySelector('#generate')).to.not.exist
+  //     expect(vm.$el.querySelector('#cancel')).to.exist
+  //     moxDone()
+  //     done()
+  //   })
+  // })
 })
