@@ -76,7 +76,6 @@
     name: 'code-editor',
     created () {
       this.maybeFetch()
-      console.log('DONE')
     },
     data: function () {
       return {
@@ -97,7 +96,6 @@
     },
     methods: {
       submit: function () {
-        console.log(this.errors)
         if (this.errors.any()) {
           return
         } else {
