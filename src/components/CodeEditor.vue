@@ -103,15 +103,11 @@
         this.codeId = randomStr(length)
       },
       maybeFetch: function () {
-        console.log('THIS: ' + this)
-        console.log('THIS.$route ' + this.$route)
-        console.log('THIS.$route.query ' + this.$route.query)
         var q = this.$route.query
         var self = this
         if (q.gameId && q.codeId) {
           axios.get(process.env.API_URL + '/games/' + q.gameId + '/codes/' + q.codeId)
             .then(function (response) {
-              console.log(response)
               if (response.status === 200) {
                 var d = response.data
                 self.codeId = d.codeId
