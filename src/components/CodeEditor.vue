@@ -27,22 +27,22 @@
     </div>
     <div class="row">
       <label>
-        <input type="checkbox" v-model="pub">
+        <input type="checkbox" v-model="pub" id="pub">
         <span class="label-body">Public code?</span>
       </label>
     </div>
     <hr/>
     <div class="row">
-      <button class="button-primary four columns" @click="submit" :disabled="errors.any()">
+      <button id="save" class="button-primary four columns" @click="submit" :disabled="errors.any()">
         <span class="fa fa-floppy-o" aria-hidden="true"></span> Save
       </button>
-      <button v-show="!edit" class="four columns" @click="generate(8)">
+      <button id="generate" v-if="!edit" class="four columns" @click="generate(8)">
         <span class="fa fa-random" aria-hidden="true"></span> Generate ID
       </button>
-      <button v-show="edit" class="button-primary four columns">
+      <button id="delete" v-if="edit" class="button-primary four columns">
         <span class="fa fa-trash" aria-hidden="true"></span> Delete
       </button>
-      <button class="four columns" @click="$router.back()">
+      <button id="cancel" class="four columns" @click="$router.back()">
         <span class="fa fa-ban" aria-hidden="true"></span> Cancel
       </button>
     </div>
@@ -76,24 +76,20 @@
     name: 'code-editor',
     created () {
       this.maybeFetch()
+      console.log('DONE')
     },
     data: function () {
       return {
         edit: false,
         gameId: '',
         codeId: '',
-        from: moment(new Date()).format('YYYY-MM-DD'),
-        to: moment(new Date()).add(15, 'days').format('YYYY-MM-DD'),
+        from: '',
+        to: '',
         pub: true,
-        payload: 'Hello World'
+        payload: ''
       }
     },
-    watch: {
-      codeId: function () {
-        this.codeId = this.codeId.toUpperCase()
-      },
-      '$route': 'maybeFetch'
-    },
+
     methods: {
       submit: function () {
         console.log(this.errors)
@@ -107,6 +103,9 @@
         this.codeId = randomStr(length)
       },
       maybeFetch: function () {
+        console.log('THIS: ' + this)
+        console.log('THIS.$route ' + this.$route)
+        console.log('THIS.$route.query ' + this.$route.query)
         var q = this.$route.query
         var self = this
         if (q.gameId && q.codeId) {
@@ -136,11 +135,4 @@
 </script>
 
 <style scoped>
-  .error {
-    color: red;
-    font-size: small;
-    display: inline-block;
-    margin-bottom: 1em;
-  }
-
 </style>
