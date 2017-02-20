@@ -84,12 +84,14 @@ describe('CodeEditor.vue', () => {
   })
   it('should re-generate code on button click', done => {
     routeToCodeEditor()
-    expect(vm.$el.querySelector('#codeId').value).to.be.empty
-    let button = vm.$el.querySelector('#generate')
-    simulant.fire(button, 'click')
     Vue.nextTick(() => {
-      expect(vm.$el.querySelector('#codeId').value).to.match(/^[A-Z0-9]{8}$/)
-      done()
+      expect(vm.$el.querySelector('#codeId').value).to.be.empty
+      let button = vm.$el.querySelector('#generate')
+      simulant.fire(button, 'click')
+      Vue.nextTick(() => {
+        expect(vm.$el.querySelector('#codeId').value).to.match(/^[A-Z0-9]{8}$/)
+        done()
+      })
     })
   })
 })
