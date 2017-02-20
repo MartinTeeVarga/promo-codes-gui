@@ -1,6 +1,14 @@
 <template>
   <div class="row">
     <div class="row">
+      <label for="games">Reason for contacting</label>
+      <select class="u-full-width" id="games">
+        <option value="GAME0">Game 1</option>
+        <option value="GAME1">Game 2</option>
+        <option value="GAME2">Game 3</option>
+      </select>
+    </div>
+    <div class="row">
       <button class="button-primary"><span class="fa fa-file-o" aria-hidden="true"></span>&nbsp;Add code</button>
     </div>
     <div class="row">
