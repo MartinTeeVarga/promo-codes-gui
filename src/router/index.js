@@ -12,7 +12,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/code'
+      redirect: '/about'
     },
     // {
     //   path: '/',
