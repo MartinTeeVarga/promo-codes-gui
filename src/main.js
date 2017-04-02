@@ -5,9 +5,11 @@ import App from './App'
 import moment from 'moment'
 import VeeValidate, { Validator } from 'vee-validate'
 import router from './router'
+import VueCookies from 'vue-cookies'
 
 Validator.installDateTimeValidators(moment)
 Vue.use(VeeValidate)
+Vue.use(VueCookies)
 
 /* eslint-disable no-new */
 new Vue({
