@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Promocodes from 'src/components/Promocodes'
 import moxios from 'moxios'
-import simulant from 'simulant'
+// import simulant from 'simulant'
 
 Vue.use(VueRouter)
 const router = new VueRouter({
