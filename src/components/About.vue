@@ -9,6 +9,9 @@
         With Github: <a href="http://localhost:8080/login/github">click here</a>
       </div>
       <div>
+        With Dev: <a href="http://localhost:8080/dev?userId=Krtek">click here</a>
+      </div>
+      <div>
         Logout <a href="http://localhost:8080/logout">click here</a>
       </div>
     </div>
@@ -36,11 +39,13 @@
     },
     methods: {
       fetch: function () {
+        var xToken = this.$cookies.get('X-Token')
+        console.log('GETTING WITH COOKIE XTOKEN: ' + xToken)
 //        var self = this
         var config = {
-          headers: {'X-CSFR-Token': '3a8a0b81-c871-4f94-a001-88f576688d83'}
+          headers: {'X-Token': xToken}
         }
-        axios.get('http://localhost:8080/user', config)
+        axios.get('http://localhost:8080/api/v1/user', config)
           .then(function (response) {
             console.log(response.data)
           })
