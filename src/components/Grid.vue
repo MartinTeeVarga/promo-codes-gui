@@ -8,6 +8,7 @@
     </div>
     <table class="u-full-width">
       <thead>
+      <th>[x]</th>
       <th v-for="columnDefinition in columns"
           @click="sortBy(columnDefinition.key)"
           :class="{ active: sortKey == columnDefinition.key }">
@@ -15,12 +16,25 @@
         <span v-if="sortKey == columnDefinition.key"
               :class="sortOrders[columnDefinition.key] > 0 ? 'fa fa-caret-up' : 'fa fa-caret-down'"></span>
       </th>
+      <th>
+        Edit
+      </th>
+      <th>
+        Delete
+      </th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="(entry, index) in filteredData" v-on:click="rowClick(index)">
+        <td><input type="checkbox"></td>
         <td v-for="columnDefinition in columns">
-          {{ dynamicFilter(entry[columnDefinition.key], columnDefinition.filter) }}
+          <span v-html="dynamicFilter(entry[columnDefinition.key], columnDefinition.filter)"></span>
+        </td>
+        <td>
+          <span class="fa fa-pencil" aria-hidden="true"></span>
+        </td>
+        <td>
+          <span class="fa fa-trash-o" aria-hidden="true"></span>
         </td>
       </tr>
       </tbody>
@@ -90,6 +104,8 @@
       dynamicFilter: function (str, filterName) {
         if (filterName === 'localDate') {
           return moment(new Date(str)).format('YYYY-MM-DD')
+        } else if (filterName === 'boolean') {
+          return str ? 'Yes' : 'No'
         } else {
           return str
         }
