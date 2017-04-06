@@ -19,13 +19,10 @@
 </template>
 
 <script>
-  import axios from 'axios'
+//  import axios from 'axios'
 
   export default {
     name: 'about',
-    created () {
-      this.fetch()
-    },
     data () {
       return {
         gridColumns: [
@@ -35,20 +32,6 @@
           {key: 'pub', name: 'Public', filter: 'none'}],
         gridData: [],
         sortKey: 'codeId'
-      }
-    },
-    methods: {
-      fetch: function () {
-        var xToken = this.$cookies.get('X-Token')
-        console.log('GETTING WITH COOKIE XTOKEN: ' + xToken)
-//        var self = this
-        var config = {
-          headers: {'X-Token': xToken}
-        }
-        axios.get('http://localhost:8080/api/v1/user', config)
-          .then(function (response) {
-            console.log(response.data)
-          })
       }
     }
   }
