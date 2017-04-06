@@ -2,7 +2,7 @@
   <div class="row">
     <div class="row">
       <label for="games">Games</label>
-      <select class="u-full-width" id="games">
+      <select class="u-full-width" id="games" v-model="selected">
         <option value="GAME-1">Game 1</option>
         <option value="GAME-2">Game 2</option>
         <option value="GAME-3">Game 3</option>
@@ -32,6 +32,7 @@
     },
     data () {
       return {
+        selected: 'GAME-1',
         gridColumns: [
           {key: 'codeId', name: 'Code', filter: 'none'},
           {key: 'from', name: 'From', filter: 'localDate'},
@@ -44,7 +45,7 @@
     methods: {
       fetch: function () {
         var self = this
-        axios.get(process.env.API_URL + '/games/GAME-1/codes/list')
+        axios.get(process.env.API_URL + '/games/' + self.selected + '/codes/list')
           .then(function (response) {
             // todo deal with errors
             self.gridData = response.data
