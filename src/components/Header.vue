@@ -51,7 +51,6 @@
           })
       },
       destroy: function () {
-        console.log('DESTROY!')
         this.$cookies.remove('X-Token')
       }
     }
