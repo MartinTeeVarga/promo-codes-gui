@@ -17,10 +17,8 @@
               :class="sortOrders[columnDefinition.key] > 0 ? 'fa fa-caret-up' : 'fa fa-caret-down'"></span>
       </th>
       <th>
-        <span class="fa fa-pencil" aria-hidden="true"></span>
       </th>
       <th>
-        <span class="fa fa-trash" aria-hidden="true"></span>
       </th>
       </tr>
       </thead>
