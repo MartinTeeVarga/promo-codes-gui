@@ -10,8 +10,8 @@
     </div>
     <div class="row">
       <button class="button-primary"><span class="fa fa-file-o" aria-hidden="true"></span>&nbsp;Add code</button>
-      <button><span class="fa fa-files-o" aria-hidden="true"></span></span>&nbsp;Generate multiple</button>
-      <button><span class="fa fa-trash" aria-hidden="true"></span></span>&nbsp;Delete selected</button>
+      <button><span class="fa fa-files-o" aria-hidden="true"></span>&nbsp;Generate multiple</button>
+      <button><span class="fa fa-trash" aria-hidden="true"></span>&nbsp;Delete selected</button>
     </div>
     <div class="row">
       <grid-component
