@@ -38,6 +38,10 @@
   margin-bottom: 1em;
 }
 
+td input, th input {
+  margin-bottom: 0px;
+}
+
 input[disabled] {
   background: #ddd;
 }
