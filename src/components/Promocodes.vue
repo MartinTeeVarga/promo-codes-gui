@@ -52,6 +52,9 @@
           })
       }
     },
+    watch: {
+      selected: 'fetch'
+    },
     components: {
       GridComponent
     }
