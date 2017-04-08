@@ -28,7 +28,7 @@ describe('Grid.vue', () => {
       .to.equal('ColumnA')
     expect(vm.$el.querySelector('thead th.active span').className)
       .to.equal('fa fa-caret-up')
-    expect(vm.$el.querySelector('thead th:not(.active)').textContent.trim())
+    expect(vm.$el.querySelector('thead th:not(.active):not(.control)').textContent.trim())
       .to.equal('ColumnB')
   })
   it('should debounce search', () => {
@@ -84,7 +84,7 @@ describe('Grid.vue', () => {
     })
     expect(vm.$el.querySelector('table').textContent.replace(/\r?\n|\r/g, ''))
       .to.match(/.*A.*X.*D.*Z.*/)
-    var th = vm.$el.querySelector('th:not(.active)')
+    var th = vm.$el.querySelector('th:not(.active):not(.control)')
     simulant.fire(th, 'click')
     Vue.nextTick(() => {
       expect(vm.$el.querySelector('table').textContent.replace(/\r?\n|\r/g, ''))

@@ -8,7 +8,7 @@
     </div>
     <table class="u-full-width">
       <thead>
-      <th><input type="checkbox" id="selectAll" v-model="selectAll"></th>
+      <th class="control"><input type="checkbox" id="selectAll" v-model="selectAll"></th>
       <th v-for="columnDefinition in columns"
           @click="sortBy(columnDefinition.key)"
           :class="{ active: sortKey == columnDefinition.key }">
@@ -16,8 +16,8 @@
         <span v-if="sortKey == columnDefinition.key"
               :class="sortOrders[columnDefinition.key] > 0 ? 'fa fa-caret-up' : 'fa fa-caret-down'"></span>
       </th>
-      <th/>
-      <th/>
+      <th class="control"/>
+      <th class="control"/>
       </thead>
       <tbody>
       <tr v-for="entry in filteredData">
