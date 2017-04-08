@@ -8,7 +8,7 @@
     </div>
     <table class="u-full-width">
       <thead>
-      <th><input type="checkbox" id="selectAll"></th>
+      <th><input type="checkbox" id="selectAll" v-model="selectAll"></th>
       <th v-for="columnDefinition in columns"
           @click="sortBy(columnDefinition.key)"
           :class="{ active: sortKey == columnDefinition.key }">
@@ -16,15 +16,12 @@
         <span v-if="sortKey == columnDefinition.key"
               :class="sortOrders[columnDefinition.key] > 0 ? 'fa fa-caret-up' : 'fa fa-caret-down'"></span>
       </th>
-      <th>
-      </th>
-      <th>
-      </th>
-      </tr>
+      <th/>
+      <th/>
       </thead>
       <tbody>
-      <tr v-for="(entry, index) in filteredData" v-on:click="rowClick(index)">
-        <td><input type="checkbox" :id="'item-' + entry.gameId"></td>
+      <tr v-for="entry in filteredData">
+        <td><input type="checkbox" v-model="entry.selected"></td>
         <td v-for="columnDefinition in columns">
           <span v-html="dynamicFilter(entry[columnDefinition.key], columnDefinition.filter)"></span>
         </td>
@@ -38,7 +35,7 @@
       </tbody>
       <tfoot v-if="data.length > limit">
       <tr>
-        <th :colspan="columns.length" class="centered">
+        <th :colspan="columns.length + 3" class="centered">
           <button v-on:click="limit += 10">Show more</button>
           <button v-on:click="limit = data.length">Show all</button>
         </th>
@@ -92,6 +89,20 @@
           })
         }
         return data.slice(0, this.limit)
+      },
+      selectAll: {
+        get: function () {
+          var allSelected = true
+          this.filteredData.forEach(function (item) {
+            allSelected &= item.selected
+          })
+          return allSelected
+        },
+        set: function (value) {
+          this.filteredData.forEach(function (item) {
+            item.selected = value
+          })
+        }
       }
     },
     methods: {
@@ -116,6 +127,7 @@
       }, process.env.DEFAULT_DEBOUNCE),
       rowClick: function (entry) {
         console.log('Entry ' + JSON.stringify(this.filteredData[entry]))
+        this.filteredData[entry].checked = true
       }
     }
   }
