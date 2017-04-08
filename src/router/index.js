@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import CodeEditor from 'components/CodeEditor'
-import About from 'components/About'
+import Home from 'components/Home'
 import Promocodes from 'components/Promocodes'
 
 export default new Router({
@@ -12,7 +12,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/about'
+      redirect: '/home'
     },
     // {
     //   path: '/',
@@ -24,9 +24,9 @@ export default new Router({
       component: Promocodes
     },
     {
-      path: '/about',
-      name: 'about',
-      component: About
+      path: '/home',
+      name: 'home',
+      component: Home
     },
     {
       path: '/code',

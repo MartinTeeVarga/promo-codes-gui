@@ -26,10 +26,10 @@
           <span v-html="dynamicFilter(entry[columnDefinition.key], columnDefinition.filter)"></span>
         </td>
         <td>
-          <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
+          <span class="fa fa-pencil-square-o" aria-hidden="true" v-on:click="editCallback(entry)"></span>
         </td>
         <td>
-          <span class="fa fa-trash-o" aria-hidden="true"></span>
+          <span class="fa fa-trash-o" aria-hidden="true" v-on:click="deleteCallback(entry)"></span>
         </td>
       </tr>
       </tbody>
@@ -53,7 +53,9 @@
     props: {
       data: Array,
       columns: Array,
-      initialSortKey: String
+      initialSortKey: String,
+      editCallback: Function,
+      deleteCallback: Function
     },
     data: function () {
       var sortOrders = {}

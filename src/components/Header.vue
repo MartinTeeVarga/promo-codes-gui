@@ -1,21 +1,35 @@
 <template>
   <div class="row">
-    <div class="u-pull-left">
-      <h1>Jepice</h1>
+    <div class="row">
+      <div class="u-pull-left">
+        <h1>Jepice</h1>
+      </div>
+      <div v-if="user == null" class="u-pull-right">
+        <!--for now only dev-->
+        <a href="http://localhost:8080/dev?userId=Krtek" class="button button-primary"><span class="fa fa-sign-in" aria-hidden="true"></span>&nbsp;Sign
+          In</a>
+      </div>
+      <div v-else class="u-pull-right">
+        <button>
+          <span class="fa fa-user-circle" aria-hidden="true"></span>
+          <span>{{user.attributes.name}}</span>
+        </button>
+        <a href="/" v-on:click="destroy" class="button button-primary"><span class="fa fa-sign-out" aria-hidden="true"></span>Sign out</a>
+      </div>
     </div>
-    <div v-if="user == null" class="u-pull-right">
-      <!--for now only dev-->
-      <a href="http://localhost:8080/dev?userId=Krtek" class="button button-primary"><span class="fa fa-sign-in"
-                                                                                           aria-hidden="true"></span>&nbsp;Sign
-        In</a>
-    </div>
-    <div v-else class="u-pull-right">
-      <button>
-        <span class="fa fa-user-circle" aria-hidden="true"></span>
-        <span>{{user.attributes.name}}</span>
-      </button>
-      <a href="/" v-on:click="destroy" class="button button-primary"><span class="fa fa-sign-out"
-                                                                           aria-hidden="true"></span>Sign out</a>
+    <div class="row">
+      <nav class="navbar">
+        <div class="row">
+          <ul class="navbar-list centered">
+            <li class="navbar-item">
+              <router-link class="navbar-link" to="/home">Home</router-link>
+            </li>
+            <li v-if="user != null" class="navbar-item">
+              <router-link class="navbar-link" to="/promocodes">Promo Codes</router-link>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </div>
   </div>
 </template>

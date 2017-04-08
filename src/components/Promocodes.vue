@@ -3,7 +3,7 @@
     <div class="row">
       <label for="games">Games</label>
       <select class="u-full-width" id="games" v-model="selected">
-        <option disabled selected value="none"> -- select a game -- </option>
+        <option disabled selected value="none"> -- select a game --</option>
         <option v-for="game in gameData" :value="game.gameId">{{game.attributes.name}}</option>
       </select>
     </div>
@@ -16,7 +16,9 @@
       <grid-component
         :data="gridData"
         :columns="gridColumns"
-        :initialSortKey="sortKey">
+        :initialSortKey="sortKey"
+        :editCallback="editEntry"
+        :deleteCallback="deleteEntry">
       </grid-component>
     </div>
   </div>
@@ -66,6 +68,25 @@
             self.gameData = response.data
             self.selected = 'GAME-1'
           })
+      },
+      deleteEntry: function (entry) {
+        var self = this
+        axios.delete(process.env.API_URL + '/games/' + entry.gameId + '/codes/' + entry.codeId)
+          .then(function (response) {
+            if (response.status === 200) {
+              self.gridData = self.gridData.filter(function (item) {
+                return !(entry.codeId === item.codeId && entry.gameId === item.gameId)
+              })
+            } else {
+              console.log('Cannot delete ' + JSON.stringify(entry))
+            }
+          })
+          .catch(function (error) {
+            console.log('ERR' + JSON.stringify(error))
+          })
+      },
+      editEntry: function (entry) {
+        console.log('EDIT ' + JSON.stringify(entry))
       }
     },
     watch: {

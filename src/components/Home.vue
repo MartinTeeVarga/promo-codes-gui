@@ -22,7 +22,7 @@
 //  import axios from 'axios'
 
   export default {
-    name: 'about',
+    name: 'home',
     data () {
       return {
         gridColumns: [
