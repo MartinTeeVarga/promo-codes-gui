@@ -8,9 +8,12 @@
       </select>
     </div>
     <div class="row">
-      <button class="button-primary"><span class="fa fa-file-o" aria-hidden="true"></span>&nbsp;Add code</button>
+      <button class="button-primary" @click="createNewCode()"><span class="fa fa-file-o" aria-hidden="true"></span>&nbsp;Add
+        code
+      </button>
       <button><span class="fa fa-files-o" aria-hidden="true"></span>&nbsp;Generate multiple</button>
-      <button v-on:click="deleteSelected()"><span class="fa fa-trash" aria-hidden="true"></span>&nbsp;Delete selected</button>
+      <button @click="deleteSelected()"><span class="fa fa-trash" aria-hidden="true"></span>&nbsp;Delete selected
+      </button>
     </div>
     <div class="row">
       <grid-component
@@ -47,6 +50,14 @@
       }
     },
     methods: {
+      createNewCode: function () {
+        this.$router.push({
+          name: 'code',
+          query: {
+            gameId: this.selected
+          }
+        })
+      },
       fetchCodes: function () {
         var self = this
         axios.get(process.env.API_URL + '/games/' + self.selected + '/codes/list')
@@ -66,7 +77,15 @@
           .then(function (response) {
             // todo deal with errors
             self.gameData = response.data
-            self.selected = 'GAME-1'
+            var q = self.$route.query
+            if (q.gameId) {
+              // TODO only do it if there is such id
+              console.log('PRESELECTED ' + q.gameId)
+              self.selected = q.gameId
+            } else {
+              // TODO remove this
+              self.selected = self.gameData[0].gameId
+            }
           })
       },
       deleteSelected: function () {
@@ -96,7 +115,13 @@
           })
       },
       editEntry: function (entry) {
-        console.log('EDIT ' + JSON.stringify(entry))
+        this.$router.push({
+          name: 'code',
+          query: {
+            gameId: entry.gameId,
+            codeId: entry.codeId
+          }
+        })
       }
     },
     watch: {

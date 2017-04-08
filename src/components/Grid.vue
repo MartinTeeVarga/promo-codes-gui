@@ -26,18 +26,18 @@
           <span v-html="dynamicFilter(entry[columnDefinition.key], columnDefinition.filter)"></span>
         </td>
         <td>
-          <span class="fa fa-pencil-square-o" aria-hidden="true" v-on:click="editCallback(entry)"></span>
+          <span class="fa fa-pencil-square-o" aria-hidden="true" @click="editCallback(entry)"></span>
         </td>
         <td>
-          <span class="fa fa-trash-o" aria-hidden="true" v-on:click="deleteCallback(entry)"></span>
+          <span class="fa fa-trash-o" aria-hidden="true" @click="deleteCallback(entry)"></span>
         </td>
       </tr>
       </tbody>
       <tfoot v-if="data.length > limit">
       <tr>
         <th :colspan="columns.length + 3" class="centered">
-          <button v-on:click="limit += 10">Show more</button>
-          <button v-on:click="limit = data.length">Show all</button>
+          <button @click="limit += 10">Show more</button>
+          <button @click="limit = data.length">Show all</button>
         </th>
       </tr>
       </tfoot>

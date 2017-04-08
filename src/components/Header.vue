@@ -14,7 +14,7 @@
           <span class="fa fa-user-circle" aria-hidden="true"></span>
           <span>{{user.attributes.name}}</span>
         </button>
-        <a href="/" v-on:click="destroy" class="button button-primary"><span class="fa fa-sign-out" aria-hidden="true"></span>Sign out</a>
+        <a href="/" @click="destroy" class="button button-primary"><span class="fa fa-sign-out" aria-hidden="true"></span>Sign out</a>
       </div>
     </div>
     <div class="row">

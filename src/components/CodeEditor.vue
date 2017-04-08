@@ -39,7 +39,7 @@
       <button id="generate" v-if="!edit" class="four columns" @click="generate(8)">
         <span class="fa fa-random" aria-hidden="true"></span> Generate ID
       </button>
-      <button id="delete" v-if="edit" class="button-primary four columns">
+      <button id="delete" v-if="edit" class="button-primary four columns" @click="deleteCode()">
         <span class="fa fa-trash" aria-hidden="true"></span> Delete
       </button>
       <button id="cancel" class="four columns" @click="$router.back()">
@@ -95,10 +95,61 @@
       '$route': 'maybeFetch'
     },
     methods: {
+      deleteCode: function () {
+        var self = this
+        axios.delete(process.env.API_URL + '/games/' + self.gameId + '/codes/' + self.codeId)
+          .then(function (response) {
+            if (response.status === 200) {
+              // TODO maybe message?
+              self.$router.push({
+                name: 'promocodes',
+                query: {
+                  gameId: self.gameId
+                }
+              })
+            } else {
+              console.log('Cannot delete ' + JSON.stringify(self.codeId))
+            }
+          })
+          .catch(function (error) {
+            console.log('ERR ' + JSON.stringify(error))
+          })
+      },
       submit: function () {
-        if (this.errors.any()) {
+        var self = this
+        if (self.errors.any()) {
           return
         } else {
+          var action
+          var url
+          var body = {
+            gameId: self.gameId,
+            codeId: self.codeId,
+            from: self.from,
+            to: self.to,
+            pub: self.pub,
+            payload: self.payload
+          }
+          if (self.edit) {
+            action = axios.put
+            url = process.env.API_URL + '/games/' + self.gameId + '/codes'
+          } else {
+            action = axios.post
+            url = process.env.API_URL + '/games/' + self.gameId + '/codes'
+          }
+          action(url, body)
+            .then(function (response) {
+              console.log(JSON.stringify(response))
+              self.$router.push({
+                name: 'promocodes',
+                query: {
+                  gameId: self.gameId
+                }
+              })
+            })
+            .catch(function (error) {
+              console.log('ERR ' + JSON.stringify(error))
+            })
           console.log('SUBMIT')
         }
       },
@@ -108,6 +159,11 @@
       maybeFetch: function () {
         var q = this.$route.query
         var self = this
+        if (q.gameId) {
+          this.gameId = q.gameId
+        } else {
+          // TODO figure out what to do :)
+        }
         if (q.gameId && q.codeId) {
           axios.get(process.env.API_URL + '/games/' + q.gameId + '/codes/' + q.codeId)
             .then(function (response) {
@@ -125,7 +181,7 @@
               }
             })
             .catch(function (error) {
-              console.log(error)
+              console.log('ERR' + error)
             })
         }
       }
