@@ -10,7 +10,7 @@
     <div class="row">
       <button class="button-primary"><span class="fa fa-file-o" aria-hidden="true"></span>&nbsp;Add code</button>
       <button><span class="fa fa-files-o" aria-hidden="true"></span>&nbsp;Generate multiple</button>
-      <button><span class="fa fa-trash" aria-hidden="true"></span>&nbsp;Delete selected</button>
+      <button v-on:click="deleteSelected()"><span class="fa fa-trash" aria-hidden="true"></span>&nbsp;Delete selected</button>
     </div>
     <div class="row">
       <grid-component
@@ -69,6 +69,16 @@
             self.selected = 'GAME-1'
           })
       },
+      deleteSelected: function () {
+        // make a copy of data
+        var self = this
+        var data = self.gridData.slice(0)
+        data.forEach(function (item) {
+          if (item.selected) {
+            self.deleteEntry(item)
+          }
+        })
+      },
       deleteEntry: function (entry) {
         var self = this
         axios.delete(process.env.API_URL + '/games/' + entry.gameId + '/codes/' + entry.codeId)
@@ -82,7 +92,7 @@
             }
           })
           .catch(function (error) {
-            console.log('ERR' + JSON.stringify(error))
+            console.log('ERR ' + JSON.stringify(error))
           })
       },
       editEntry: function (entry) {

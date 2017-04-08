@@ -94,7 +94,7 @@
       },
       selectAll: {
         get: function () {
-          var allSelected = true
+          var allSelected = this.filteredData.length > 0
           this.filteredData.forEach(function (item) {
             allSelected &= item.selected
           })
