@@ -36,13 +36,12 @@
 
 <script>
   import axios from 'axios'
+  import rc from '../restClient'
 
   export default {
     name: 'header',
     created () {
-      axios.defaults.headers.common = {
-        'X-Token': this.$cookies.get('X-Token')
-      }
+      rc.setToken(this.$cookies.get('X-Token'))
       this.fetch()
     },
     data () {
