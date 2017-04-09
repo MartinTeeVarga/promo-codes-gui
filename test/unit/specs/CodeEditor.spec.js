@@ -10,12 +10,13 @@ Validator.installDateTimeValidators(moment)
 Vue.use(VeeValidate)
 
 Vue.use(VueRouter)
-const router = new VueRouter({
+var realRouter = new VueRouter({
   routes: [
     {path: '/whatever', name: 'whatever', component: {render: h => '-'}},
     {path: '/code', name: 'code', component: CodeEditor}
   ]
 })
+const router = sinon.spy(realRouter, 'push')
 const vm = new Vue({
   el: document.createElement('div'),
   router: router,
