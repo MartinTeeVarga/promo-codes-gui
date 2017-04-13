@@ -53,6 +53,7 @@
 
   import moment from 'moment'
   import axios from 'axios'
+  import rc from '../restClient'
 
   const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -97,22 +98,18 @@
     methods: {
       deleteCode: function () {
         var self = this
-        axios.delete(process.env.API_URL + '/games/' + self.gameId + '/codes/' + self.codeId)
-          .then(function (response) {
-            if (response.status === 200) {
-              // TODO maybe message?
-              self.$router.push({
-                name: 'promocodes',
-                query: {
-                  gameId: self.gameId
-                }
-              })
-            } else {
-              console.log('Cannot delete ' + JSON.stringify(self.codeId))
-            }
+        rc.deleteCode(self.gameId, self.codeId)
+          .then(function (message) {
+            console.info(message)
+            self.$router.push({
+              name: 'promocodes',
+              query: {
+                gameId: self.gameId
+              }
+            })
           })
-          .catch(function (error) {
-            console.log('ERR ' + JSON.stringify(error))
+          .catch(function (message) {
+            console.error(message)
           })
       },
       submit: function () {
