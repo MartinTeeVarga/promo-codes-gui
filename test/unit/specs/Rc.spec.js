@@ -2,7 +2,7 @@ import rc from 'src/restClient'
 import axios from 'axios'
 import moxios from 'moxios'
 
-describe.only('Rest Client', () => {
+describe('Rest Client', () => {
   beforeEach(function () {
     moxios.install()
   })
