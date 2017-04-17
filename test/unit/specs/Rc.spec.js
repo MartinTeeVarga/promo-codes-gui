@@ -86,4 +86,48 @@ describe.only('Rest Client', () => {
         })
     })
   })
+
+  describe('updateCode', function () {
+    it('should update existing code', done => {
+      moxios.stubRequest(process.env.API_URL + '/games/GM01/codes', {
+        status: 200
+      })
+      var code = {
+        gameId: 'GM01',
+        codeId: 'CD01',
+        from: '1',
+        to: '2',
+        pub: true,
+        payload: 'empty'
+      }
+      rc.setToken('Token')
+      rc.updateCode(code)
+        .then(function (message) {
+          expect(message).to.contain('CD01')
+          let request = moxios.requests.mostRecent()
+          expect(request.config.method).to.equal('put')
+          expect(request.config.headers['X-Token']).to.equal('Token')
+          expect(JSON.parse(request.config.data)).to.deep.equal(code)
+          done()
+        })
+    })
+    it('should catch errors', done => {
+      moxios.stubRequest(process.env.API_URL + '/games/GM01/codes', {
+        status: 400
+      })
+      var code = {
+        gameId: 'GM01',
+        codeId: 'CD01',
+        from: '1',
+        to: '2',
+        pub: true,
+        payload: 'empty'
+      }
+      rc.updateCode(code)
+        .catch(function (message) {
+          expect(message).to.contain('CD01')
+          done()
+        })
+    })
+  })
 })
