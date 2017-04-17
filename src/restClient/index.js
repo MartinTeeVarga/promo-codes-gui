@@ -36,5 +36,17 @@ Rc.prototype.createCode = function (code) {
       })
   })
 }
+Rc.prototype.updateCode = function (code) {
+  return new Promise((resolve, reject) => {
+    axios.put(process.env.API_URL + '/games/' + code.gameId + '/codes', code)
+      .then(function () {
+        resolve('Code ' + code.codeId + ' updated.')
+      })
+      .catch(function (error) {
+        console.error(error)
+        reject('Error while updating code ' + code.codeId)
+      })
+  })
+}
 
 export default new Rc()
