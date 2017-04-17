@@ -67,5 +67,23 @@ describe.only('Rest Client', () => {
           done()
         })
     })
+    it('should catch errors', done => {
+      moxios.stubRequest(process.env.API_URL + '/games/GM01/codes', {
+        status: 400
+      })
+      var code = {
+        gameId: 'GM01',
+        codeId: 'CD01',
+        from: '1',
+        to: '2',
+        pub: true,
+        payload: 'empty'
+      }
+      rc.createCode(code)
+        .catch(function (message) {
+          expect(message).to.contain('CD01')
+          done()
+        })
+    })
   })
 })
