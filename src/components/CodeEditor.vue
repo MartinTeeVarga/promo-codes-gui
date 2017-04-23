@@ -128,15 +128,14 @@
             payload: self.payload
           }
           if (self.edit) {
-            action = axios.put
-            url = process.env.API_URL + '/games/' + self.gameId + '/codes'
+            action = rc.updateCode
           } else {
-            action = axios.post
-            url = process.env.API_URL + '/games/' + self.gameId + '/codes'
+            action = rc.createCode
           }
-          action(url, body)
-            .then(function (response) {
-              console.log(JSON.stringify(response))
+          action(body)
+            .then(function (message) {
+              console.log(JSON.stringify(message))
+              // TODO popup?
               self.$router.push({
                 name: 'promocodes',
                 query: {
@@ -145,6 +144,7 @@
               })
             })
             .catch(function (error) {
+              // TODO popup?
               console.log('ERR ' + JSON.stringify(error))
             })
           console.log('SUBMIT')
